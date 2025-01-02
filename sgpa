@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGPA Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+        .container {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SGPA Calculator</h1>
+        <form id="sgpaForm">
+            <label for="grade1">Computer Organization (3 credits):</label>
+            <input type="number" id="grade1" required>
+
+            <label for="grade2">DSA (3 credits):</label>
+            <input type="number" id="grade2" required>
+
+            <label for="grade3">Analog and Digital Electronics (3 credits):</label>
+            <input type="number" id="grade3" required>
+
+            <label for="grade4">Mathematics (2 credits):</label>
+            <input type="number" id="grade4" required>
+
+            <label for="grade5">Economics (3 credits):</label>
+            <input type="number" id="grade5" required>
+
+            <label for="grade6">Computer Organization Lab (2 credits):</label>
+            <input type="number" id="grade6" required>
+
+            <label for="grade7">DSA Lab (2 credits):</label>
+            <input type="number" id="grade7" required>
+
+            <label for="grade8">Analog and Digital Electronics Lab (2 credits):</label>
+            <input type="number" id="grade8" required>
+
+            <label for="grade9">Python Lab (2 credits):</label>
+            <input type="number" id="grade9" required>
+
+            <button type="button" onclick="calculateSGPA()">Calculate SGPA</button>
+        </form>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateSGPA() {
+            const credits = [3, 3, 3, 2, 3, 2, 2, 2, 2];
+            let totalCredits = 0;
+            let totalGradePoints = 0;
+
+            for (let i = 1; i <= 9; i++) {
+                const grade = parseFloat(document.getElementById(`grade${i}`).value);
+                if (isNaN(grade) || grade < 0 || grade > 10) {
+                    alert(`Please enter a valid grade between 0 and 10 for subject ${i}`);
+                    return;
+                }
+                totalGradePoints += grade * credits[i - 1];
+                totalCredits += credits[i - 1];
+            }
+
+            const sgpa = (totalGradePoints / totalCredits).toFixed(2);
+
+            document.getElementById('result').innerHTML = `
+                <p><strong>Total Credits:</strong> ${totalCredits}</p>
+                <p><strong>SGPA:</strong> ${sgpa}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
